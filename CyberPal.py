@@ -6,7 +6,8 @@ import webbrowser
 import os
 import smtplib
 import pyaudio
-
+import requests
+import time
 
 
 engine = pyttsx3.init('sapi5')
@@ -30,8 +31,6 @@ def wishMe():
 
     else:
         speak("Good Evening!")  
-
-    speak("I am Leena. Please tell me how may I help you")       
 
 def takeCommand():
     #It takes microphone input from the user and returns string output
@@ -61,10 +60,19 @@ def sendEmail(to, content):
     server.sendmail('mail@gmail.com', to, content)
     server.close()
 
+def basicDetails():
+    speak("Let's Start with some basic information exchange. ")
+    speak("Hi, I am your Cyber Pal")
+    speak("What shall I call you?")
+    query=takeCommand().lower()
+    speak("Nice to meet you "+query+"How may I help you?")
+    return query
+
 if __name__ == "__main__":
     wishMe()
-    #while True:
-    if 1:
+    name=basicDetails()
+    while True:
+    #if 1:
         query = takeCommand().lower()
 
         # Logic for executing tasks based on query
@@ -76,22 +84,63 @@ if __name__ == "__main__":
             print(results)
             speak(results)
 
+        elif 'can you do' in query:
+            speak('I can open websites like Youtube, Google, Wikipedia and Music Player. Let me inform you todays time and date. What else am I forgetting? ')
+            speak('Yes, I can ask you Riddles, tell you a joke and can suggest you some random activity.')
+            speak("Well, I can even search on youtube and google too, which you want me to.")
+            speak('I am at your service'+name)
+
+        #search on youtube
+        elif 'search on youtube' in query:
+            innerquery = query.replace("search on youtube", "")
+            speak("Searching "+innerquery)
+            webbrowser.open("https://www.youtube.com/results?search_query="+innerquery)
+
         elif 'open youtube' in query:
-            webbrowser.open("youtube.com")
             speak("Opening Youtube")
+            webbrowser.open("youtube.com")
 
         elif 'open google' in query:
-            webbrowser.open("google.com")
             speak("Opening Google")
+            webbrowser.open("google.com")
 
         elif 'open music player' in query:
-            webbrowser.open("https://wynk.in/music")   
             speak("Opening WYNk player")
+            webbrowser.open("https://wynk.in/music")   
 
         elif 'the time' in query:
             strTime = datetime.datetime.now().strftime("%H:%M:%S")    
             speak(f"Sir, the time is {strTime}")
 
+        #suggest random activity
+        elif 'random activity' in query:
+            response = requests.get('https://www.boredapi.com/api/activity')
+            data=response.json()
+            print(data['activity'])
+            speak(data['activity'])
+
+        #riddles
+        elif 'riddle' in query:
+            response = requests.get('https://riddles-api.vercel.app/random')
+            data=response.json()
+            print(data['riddle'])
+            speak(data['riddle'])
+            print("You have 10 seconds to guess the answer")
+            speak("You have 10 seconds to guess the answer")
+            
+            time.sleep(10)
+            print("here is the answer")
+            print(data["answer"])
+            speak(data["answer"])
+        
+        #random joke
+        elif 'joke' in query:
+            response = requests.get('https://icanhazdadjoke.com/slack')
+            data=response.json()
+            jokeText=str(data['attachments'])
+            joke=jokeText[jokeText.find('text')+6:-2]
+            print(joke)
+            speak(joke)
 
         elif 'email to riya' in query:
             try:
@@ -103,5 +152,9 @@ if __name__ == "__main__":
             except Exception as e:
                 print(e)
                 speak("Sorry my friend riya. I am not able to send this email")  
-            
+
+        else:
+            speak("Searching "+query)
+            webbrowser.open("https://www.google.com/search?q="+query)
+        
                 
