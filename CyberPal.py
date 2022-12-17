@@ -21,7 +21,7 @@ engine.setProperty('voice', voices[1].id)
 #can add some more
 emails = {
     "purvi":"purvitashu450Agmail.com",
-    "riya":"riyatyagi06ms@gmail.com"
+    "riya":"riyatyagi618@gmail.com"
 }
 
 def speak(audio):
@@ -72,7 +72,7 @@ def sendEmail(to, content):
     server.close()
 
 def basicDetails():
-    speak("Let's Start with some basic information exchange. ")
+    
     speak("Hi, I am your Cyber Pal")
     speak("What shall I call you?")
     query=takeCommand().lower()
@@ -196,12 +196,20 @@ if __name__ == "__main__":
             interface = devices.Activate(IAudioEndpointVolume._iid_, CLSCTX_ALL, None)
             volume = cast(interface, POINTER(IAudioEndpointVolume))
             volume.SetMasterVolumeLevel(0.0, None)
+            
+        elif "news" in query:
+            response = requests.get("https://newsapi.org/v2/top-headlines?country=us&category=business&apiKey=3f73dcbee85145c3aae56c88551aa238")
+            res= response.json()
+            for i in range(4):
+                print(res['articles'][i]['title'])
+                speak(res['articles'][i]['title'])    
 
         #function to quit the program
         elif 'quit' in query:
+            speak("Bye-Bye")
             exit()
 
-        else:
+        elif query!='none':
             speak("Searching "+query)
             webbrowser.open("https://www.google.com/search?q="+query)
         
