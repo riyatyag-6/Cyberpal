@@ -16,7 +16,7 @@ The program works as a <b>digital voice assistant</b> that uses <b>Artificial In
 
 ## Deployment
 - Clone the project
-- Open terminal and follow the bellow command
+- Open terminal and follow the below command
 ```
   cd 'path to cloned project'
 ```
