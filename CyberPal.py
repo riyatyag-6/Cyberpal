@@ -17,11 +17,11 @@ engine = pyttsx3.init('sapi5')
 voices = engine.getProperty('voices')
 engine.setProperty('voice', voices[1].id)
 
-#new emails dictionary added
-#can add some more
+
+#email dictionary
 emails = {
-    "purvi":"purvitashu450Agmail.com",
-    "riya":"riyatyagi618@gmail.com"
+    "receiver1":"receiver1@gmail.com",
+    "receiver2":"receiver2@gmail.com"
 }
 
 def speak(audio):
@@ -59,16 +59,18 @@ def takeCommand():
         print("Say that again please...")  
         return "None"
     return query
-#new functionality of taking password from a file
+
+
 def sendEmail(to, content):
     server = smtplib.SMTP('smtp.gmail.com', 587)
     server.ehlo()
     server.starttls()
+    #functionality of taking password from a file
     f=open('email.txt')
     for word in f:
         pswd=word
-    server.login('seemransethi@gmail.com', pswd)
-    server.sendmail('seemransethi@gmail.com', to, content)
+    server.login('sender@gmail.com', pswd)
+    server.sendmail('sender@gmail.com', to, content)
     server.close()
 
 def basicDetails():
@@ -97,7 +99,7 @@ if __name__ == "__main__":
 
         #capabilities of CyberPal
         elif 'can you do' in query:
-            speak('I can open websites like Youtube, Google, Wikipedia and Music Player. Let me inform you todays time and date. What else am I forgetting? ')
+            speak('I can open websites like Youtube, Google, Wikipedia and Music Player. Let me inform you todays time and news. What else am I forgetting? ')
             speak('Yes, I can ask you Riddles, tell you a joke and can suggest you some random activity.')
             speak("Well, I can even search on youtube and google too, which you want me to.")
             speak('I am at your service'+name)
@@ -125,7 +127,8 @@ if __name__ == "__main__":
 
         #time
         elif 'the time' in query:
-            strTime = datetime.datetime.now().strftime("%H:%M:%S")    
+            strTime = datetime.datetime.now().strftime("%H:%M:%S") 
+            print(strTime)
             speak(f"Sir, the time is {strTime}")
 
         #suggest random activity
@@ -161,9 +164,9 @@ if __name__ == "__main__":
             print(joke)
             speak(joke)
 
-        #new functionality added for multiple email addresses
-        #for eg: send an email to Riya
-        #it splits the command giving, ['send','an','email','to','Riya']
+        
+        #for eg: send an email to receiver2
+        #it splits the command giving, ['send','an','email','to','receiver2']
         #it takes the last item in the list, i.e. the name and sends the email correspondigly
         #change the sender's name and email address accordingly
         elif 'email to' in query:
