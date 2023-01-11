@@ -1,6 +1,6 @@
 # CyberPal
 
-## **What you narrate is What I illustrate.**
+## **What you narrate, is What I illustrate.**
 
 
 <a href="https://github.com/404"><img src="https://github.com/riyatyag-6/Cyberpal/blob/main/CyberPal_gif.gif" width="550" height="450"></a>
