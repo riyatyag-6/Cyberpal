@@ -3,15 +3,14 @@ import speech_recognition as sr #pip install speechRecognition
 import datetime
 import wikipedia #pip install wikipedia
 import webbrowser
-import os
 import smtplib
-import pyaudio
 import requests
 import time
 import pyautogui
 from ctypes import cast, POINTER
 from comtypes import CLSCTX_ALL
 from pycaw.pycaw import AudioUtilities, IAudioEndpointVolume
+
 
 engine = pyttsx3.init('sapi5')
 voices = engine.getProperty('voices')
@@ -24,11 +23,12 @@ emails = {
     "receiver2":"receiver2@gmail.com"
 }
 
+#function to speak out the audio passed as parameter
 def speak(audio):
     engine.say(audio)
     engine.runAndWait()
 
-
+#function to wish the user according to time
 def wishMe():
     hour = int(datetime.datetime.now().hour)
     if hour>=0 and hour<12:
@@ -39,6 +39,7 @@ def wishMe():
 
     else:
         speak("Good Evening!")  
+
 
 def takeCommand():
     #It takes microphone input from the user and returns string output
@@ -60,7 +61,7 @@ def takeCommand():
         return "None"
     return query
 
-
+#function to send emails
 def sendEmail(to, content):
     server = smtplib.SMTP('smtp.gmail.com', 587)
     server.ehlo()
@@ -73,18 +74,20 @@ def sendEmail(to, content):
     server.sendmail('sender@gmail.com', to, content)
     server.close()
 
+#function to speak basic details at the start of the program
 def basicDetails():
-    
     speak("Hi, I am your Cyber Pal")
     speak("What shall I call you?")
     query=takeCommand().lower()
     speak("Nice to meet you "+query+"How may I help you?")
     return query
 
+#main function
 if __name__ == "__main__":
     wishMe()
     #interacting with the user
     name=basicDetails()
+    
     while True:
         query = takeCommand().lower()
 
@@ -181,15 +184,15 @@ if __name__ == "__main__":
                 print(e)
                 speak("Sorry my friend "+name+" I am not able to send this email")
 
-         #function for 2 volume up
+        #function for volume up
         elif 'volume up' in query:
             pyautogui.press('volumeup')
 
-        #function for 2 volume down
+        #function for volume down
         elif 'volume down' in query:
             pyautogui.press('volumedown')
 
-        #function for mute and unmute
+        #function for mute
         elif 'mute' in query:
             pyautogui.press('volumemute')
 
@@ -199,7 +202,8 @@ if __name__ == "__main__":
             interface = devices.Activate(IAudioEndpointVolume._iid_, CLSCTX_ALL, None)
             volume = cast(interface, POINTER(IAudioEndpointVolume))
             volume.SetMasterVolumeLevel(0.0, None)
-            
+        
+        #function to speak current news
         elif "news" in query:
             response = requests.get("https://newsapi.org/v2/top-headlines?country=us&category=business&apiKey=3f73dcbee85145c3aae56c88551aa238")
             res= response.json()
@@ -212,6 +216,7 @@ if __name__ == "__main__":
             speak("Bye-Bye")
             exit()
 
+        #function for everything else
         elif query!='none':
             speak("Searching "+query)
             webbrowser.open("https://www.google.com/search?q="+query)
