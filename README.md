@@ -10,7 +10,7 @@
 ## What it does?
 
 The program carries out major/prime tasks via voice commands given by the user. It uses different python modules to recognize the user’s voice command and do what is asked.
-The program works as a <b>digital voice assistant</b> that uses <b>Artificial Intelligence</b>, voice recognition,<b> Python language for processing algorithms</b>, and voice synthesis to listen to specific voice commands and return relevant information or perform specific functions as requested by the user. The assistant can <b>open websites like Youtube, Google, Wikipedia, and music player</b>. Furthermore, it can even <b>search on youtube and google</b>. It can inform you current time and date. It can<b> ask you riddles, tell you a joke, tell you current news, and can suggest you some random activity</b>.
+The program works as a <b>digital voice assistant</b> that uses voice recognition,<b> Python language for processing algorithms</b>, and voice synthesis to listen to specific voice commands and return relevant information or perform specific functions as requested by the user. The assistant can <b>open websites like Youtube, Google, Wikipedia, and music player</b>. Furthermore, it can even <b>search on youtube and google</b>. It can inform you current time and date. It can<b> ask you riddles, tell you a joke, tell you current news, and can suggest you some random activity</b>.
 
 <a href="https://github.com/404"><img src="https://user-images.githubusercontent.com/73097560/115834477-dbab4500-a447-11eb-908a-139a6edaec5c.gif"></a>
 
